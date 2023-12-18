@@ -1,6 +1,6 @@
 import express from "express";
 import "dotenv/config";
-import 'cors'
+import { CorsOptions, cors } from "cors";
 const app = express();
 app.use(cors())
 const jokedata = [
