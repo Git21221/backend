@@ -2,7 +2,7 @@ import express from "express";
 import "dotenv/config";
 import 'cors'
 const app = express();
-
+app.use(cors())
 const jokedata = [
   {
     "id": 1,
@@ -21,11 +21,6 @@ const jokedata = [
   }
 ]
 
-const corsOption = {
-  origin: 'http://127.0.0.1:5500/',
-  optionsSuccessStatus: 200
-}
-
 app.get("/", (req, res) => {
   res.send("<h2>Hello</h2>");
 });
@@ -38,7 +33,7 @@ app.get("/hii", (req, res) => {
   res.send("<h1>dekho firse hii likh rha hai....pdhai kr bhai</h1>");
 });
 
-app.get('/jokes', cors(corsOption), (req, res) => {
+app.get('/jokes', (req, res) => {
   res.json(jokedata);
 })
 
