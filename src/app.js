@@ -23,4 +23,13 @@ app.use(express.urlencoded({ extended: "16kb" }));
 //to store pdf and pdf
 app.use(express.static("public"));
 
+
 app.use(cookieParser());
+//routes import
+import userRouter from './routes/user.routes.js'
+
+
+//routes declaration
+app.use("/api/v1/users", userRouter)
+
+export {app};
