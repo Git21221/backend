@@ -1,5 +1,15 @@
 import { Router } from "express";
-import { registerUser, loginUser, logoutUser, refreshAccessToken } from "../controllers/user.controller.js";
+import {
+  registerUser,
+  loginUser,
+  logoutUser,
+  refreshAccessToken,
+  getCurrectUser,
+  changeCurrentPassword,
+  updateUserInfo,
+  updateAvater,
+  updateCoverImage,
+} from "../controllers/user.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyJwt } from "../middlewares/auth.middleware.js";
 
@@ -21,9 +31,42 @@ router.route("/register").post(
 router.route("/login").post(loginUser);
 
 //secured routes
-router.route('/logout').post(verifyJwt, logoutUser)
+router.route("/logout").post(verifyJwt, logoutUser);
 
 //endpoint for refresh access token
-router.route('/refresh-token').post(refreshAccessToken);
+router.route("/refresh-token").post(refreshAccessToken);
+
+//change user password
+router.route("/change-password").post(verifyJwt, changeCurrentPassword);
+
+//get current user info
+router.route("/curr-user").post(verifyJwt, getCurrectUser);
+
+//update user info
+router.route("/update-user-info").post(verifyJwt, updateUserInfo);
+
+//update avater
+router.route("/update-avater").post(
+  upload.fields([
+    {
+      name: "avater",
+      maxCount: 1,
+    },
+  ]),
+  verifyJwt,
+  updateAvater
+);
+
+//update cover image
+router.route("/update-cover-image").post(
+  upload.fields([
+    {
+      name: "coverImage",
+      maxCount: 1,
+    },
+  ]),
+  verifyJwt,
+  updateCoverImage
+);
 
 export default router;
