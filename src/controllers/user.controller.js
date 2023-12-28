@@ -83,7 +83,7 @@ const registerUser = asyncHandler(async (req, res) => {
   if (!createdUser)
     throw new apiError(500, "Something went wrong while registering the user!");
 
-  //return res
+//  return res
   return res
     .status(201)
     .json(new apiResponse(200, createdUser, "user created successfully!"));
@@ -265,8 +265,6 @@ const updateAvater = asyncHandler(async (req, res) => {
 
   if (!avater.url) throw new apiError(400, "Error while uploading on avater");
 
-
-
   await User.findByIdAndUpdate(
     req.user?._id,
     {
@@ -278,7 +276,9 @@ const updateAvater = asyncHandler(async (req, res) => {
       new: true,
     }
   ).select("-password");
-  return res.status(200).json(new apiResponse(200, avater.url, "Avater is updated"));
+  return res
+    .status(200)
+    .json(new apiResponse(200, avater.url, "Avater is updated"));
 });
 
 const updateCoverImage = asyncHandler(async (req, res) => {
@@ -289,9 +289,8 @@ const updateCoverImage = asyncHandler(async (req, res) => {
   }
   const coverImage = await uploadFileOnCloudinary(coverImageLocalPath);
 
-  if (!coverImage.url) throw new apiError(400, "Error while uploading on avater");
-
-
+  if (!coverImage.url)
+    throw new apiError(400, "Error while uploading on avater");
 
   await User.findByIdAndUpdate(
     req.user?._id,
@@ -304,7 +303,9 @@ const updateCoverImage = asyncHandler(async (req, res) => {
       new: true,
     }
   ).select("-password");
-  return res.status(200).json(new apiResponse(200, coverImage.url, "Cover Image is updated"));
+  return res
+    .status(200)
+    .json(new apiResponse(200, coverImage.url, "Cover Image is updated"));
 });
 
 export {
@@ -317,5 +318,5 @@ export {
   getCurrectUser,
   updateUserInfo,
   updateAvater,
-  updateCoverImage
+  updateCoverImage,
 };

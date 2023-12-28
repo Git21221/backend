@@ -40,13 +40,13 @@ router.route("/refresh-token").post(refreshAccessToken);
 router.route("/change-password").post(verifyJwt, changeCurrentPassword);
 
 //get current user info
-router.route("/curr-user").post(verifyJwt, getCurrectUser);
+router.route("/curr-user").get(verifyJwt, getCurrectUser);
 
 //update user info
-router.route("/update-user-info").post(verifyJwt, updateUserInfo);
+router.route("/update-user-info").patch(verifyJwt, updateUserInfo);
 
 //update avater
-router.route("/update-avater").post(
+router.route("/update-avater").patch(
   upload.fields([
     {
       name: "avater",
@@ -58,7 +58,7 @@ router.route("/update-avater").post(
 );
 
 //update cover image
-router.route("/update-cover-image").post(
+router.route("/update-cover-image").patch(
   upload.fields([
     {
       name: "coverImage",
